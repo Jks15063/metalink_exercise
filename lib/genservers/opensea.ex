@@ -3,7 +3,6 @@ defmodule MetalinkExercise.Genservers.Opensea do
   require Logger
 
   @refresh_time 5 * 1000
-  @collection_url "https://api.opensea.io/api/v1/collections"
 
   def init(_state) do
     top_10 = fetch_top_10()
@@ -12,7 +11,7 @@ defmodule MetalinkExercise.Genservers.Opensea do
     {:ok, top_10}
   end
 
-  def handle_info(:refresh_state, state) do
+  def handle_info(:refresh_state, _state) do
     top_10 = fetch_top_10()
     notify(top_10)
     refresh_state()
@@ -44,7 +43,7 @@ defmodule MetalinkExercise.Genservers.Opensea do
   end
 
   defp fetch_top_10() do
-    format_resp(fetch_collections())
+    format_resp(opensea_client().fetch_collections())
   end
 
   defp format_resp({:ok, %{"collections" => collections}}) do
@@ -57,13 +56,5 @@ defmodule MetalinkExercise.Genservers.Opensea do
     Logger.error(reason)
   end
 
-  defp fetch_collections() do
-    case HTTPoison.get(@collection_url) do
-      {:ok, %HTTPoison.Response{body: body, status_code: 200}} ->
-        {:ok, Jason.decode!(body)}
-
-      {:ok, %HTTPoison.Error{reason: reason}} ->
-        {:error, reason}
-    end
-  end
+  defp opensea_client, do: Application.get_env(:metalink_exercise, :opensea_client)
 end

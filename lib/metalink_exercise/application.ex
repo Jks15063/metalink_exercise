@@ -6,17 +6,17 @@ defmodule MetalinkExercise.Application do
   use Application
 
   def start(_type, _args) do
-    children = [
-      # Start the Ecto repository
-      MetalinkExercise.Repo,
-      # Start the Telemetry supervisor
-      MetalinkExerciseWeb.Telemetry,
-      # Start the PubSub system
-      {Phoenix.PubSub, name: MetalinkExercise.PubSub},
-      # Start the Endpoint (http/https)
-      MetalinkExerciseWeb.Endpoint,
-      MetalinkExercise.Genservers.Opensea
-    ]
+    children =
+      [
+        # Start the Ecto repository
+        MetalinkExercise.Repo,
+        # Start the Telemetry supervisor
+        MetalinkExerciseWeb.Telemetry,
+        # Start the PubSub system
+        {Phoenix.PubSub, name: MetalinkExercise.PubSub},
+        # Start the Endpoint (http/https)
+        MetalinkExerciseWeb.Endpoint
+      ] ++ Application.get_env(:metalink_exercise, :children)
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options

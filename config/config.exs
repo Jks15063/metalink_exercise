@@ -8,7 +8,9 @@
 use Mix.Config
 
 config :metalink_exercise,
-  ecto_repos: [MetalinkExercise.Repo]
+  ecto_repos: [MetalinkExercise.Repo],
+  children: [MetalinkExercise.Genservers.Opensea],
+  opensea_client: MetalinkExercise.OpenseaClient
 
 # Configures the endpoint
 config :metalink_exercise, MetalinkExerciseWeb.Endpoint,
@@ -25,7 +27,6 @@ config :logger, :console,
 
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
-
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"
