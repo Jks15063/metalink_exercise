@@ -7,11 +7,113 @@ defmodule MetalinkExercise.Genservers.OpenseaTest do
 
   describe "init/1" do
     test "fetches the the top 10 collections and broadcasts them" do
-      # Mox.stub(OpenseaClientMock, :fetch_collections, fn -> {:ok, [:foo]} end)
+      collections = [
+        %{
+          "slug" => "collection_2",
+          "stats" => %{
+            "average_price" => 0.0,
+            "count" => 1.0,
+            "floor_price" => 2,
+            "market_cap" => 0.0,
+            "num_owners" => 1,
+            "num_reports" => 0,
+            "one_day_average_price" => 0.0,
+            "one_day_change" => 0.0,
+            "one_day_sales" => 0.0,
+            "one_day_volume" => 0.0,
+            "seven_day_average_price" => 0.0
+          }
+        },
+        %{
+          "slug" => "collection_3",
+          "stats" => %{
+            "average_price" => 0.0,
+            "count" => 1.0,
+            "floor_price" => 3,
+            "market_cap" => 0.0,
+            "num_owners" => 1,
+            "num_reports" => 0,
+            "one_day_average_price" => 0.0,
+            "one_day_change" => 0.0,
+            "one_day_sales" => 0.0,
+            "one_day_volume" => 0.0,
+            "seven_day_average_price" => 0.0
+          }
+        },
+        %{
+          "slug" => "collection_1",
+          "stats" => %{
+            "average_price" => 0.0,
+            "count" => 1.0,
+            "floor_price" => 1,
+            "market_cap" => 0.0,
+            "num_owners" => 1,
+            "num_reports" => 0,
+            "one_day_average_price" => 0.0,
+            "one_day_change" => 0.0,
+            "one_day_sales" => 0.0,
+            "one_day_volume" => 0.0,
+            "seven_day_average_price" => 0.0
+          }
+        }
+      ]
 
-      expect(OpenseaClientMock, :fetch_collections, fn -> {:ok, [:foo]} end)
+      expect(OpenseaClientMock, :fetch_collections, fn ->
+        {:ok, %{"collections" => collections}}
+      end)
 
-      # assert Opensea.init([]) == {:ok, [:foo]}
+      assert Opensea.init([]) ==
+               {:ok,
+                [
+                  %{
+                    "slug" => "collection_3",
+                    "stats" => %{
+                      "average_price" => 0.0,
+                      "count" => 1.0,
+                      "floor_price" => 3,
+                      "market_cap" => 0.0,
+                      "num_owners" => 1,
+                      "num_reports" => 0,
+                      "one_day_average_price" => 0.0,
+                      "one_day_change" => 0.0,
+                      "one_day_sales" => 0.0,
+                      "one_day_volume" => 0.0,
+                      "seven_day_average_price" => 0.0
+                    }
+                  },
+                  %{
+                    "slug" => "collection_2",
+                    "stats" => %{
+                      "average_price" => 0.0,
+                      "count" => 1.0,
+                      "floor_price" => 2,
+                      "market_cap" => 0.0,
+                      "num_owners" => 1,
+                      "num_reports" => 0,
+                      "one_day_average_price" => 0.0,
+                      "one_day_change" => 0.0,
+                      "one_day_sales" => 0.0,
+                      "one_day_volume" => 0.0,
+                      "seven_day_average_price" => 0.0
+                    }
+                  },
+                  %{
+                    "slug" => "collection_1",
+                    "stats" => %{
+                      "average_price" => 0.0,
+                      "count" => 1.0,
+                      "floor_price" => 1,
+                      "market_cap" => 0.0,
+                      "num_owners" => 1,
+                      "num_reports" => 0,
+                      "one_day_average_price" => 0.0,
+                      "one_day_change" => 0.0,
+                      "one_day_sales" => 0.0,
+                      "one_day_volume" => 0.0,
+                      "seven_day_average_price" => 0.0
+                    }
+                  }
+                ]}
     end
   end
 
