@@ -2,7 +2,7 @@ defmodule MetalinkExercise.Genservers.Opensea do
   use GenServer
   require Logger
 
-  @refresh_time 2 * 60 * 1000
+  @refresh_time 5 * 1000
   @collection_url "https://api.opensea.io/api/v1/collections"
 
   def init(_state) do
