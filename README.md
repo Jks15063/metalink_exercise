@@ -7,6 +7,7 @@ To run the project and view the top 10 OpenSea collections by `floor_price`:
   * Install Node.js dependencies with `npm install` inside the `assets` directory
   * Start Phoenix endpoint with `mix phx.server`
   * Visit [`localhost:4000/opensea`](http://localhost:4000/opensea).
+  * The page may display as blank for a few seconds after startup.  The genserver makes a request to the Opensea `collections` endpoint every 5 seconds and broadcasts the top 10 list using Phoenix pubsub which is subscribed to by the liveview page.  It doesn't usually change every 5 seconds, but if you stare at it for a minute you should see a few updates.
   
   The Opensea API docs state that you need to request an API key to use their API.  I requested a key several days ago and have not recieved a response of any kind.  However, the API is sending me responses without it.  This may explain the problem with the `collections` endpoint.
 
