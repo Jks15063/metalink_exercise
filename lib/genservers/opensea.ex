@@ -54,6 +54,7 @@ defmodule MetalinkExercise.Genservers.Opensea do
 
   defp format_resp({:error, reason}) do
     Logger.error(reason)
+    []
   end
 
   defp opensea_client, do: Application.get_env(:metalink_exercise, :opensea_client)
